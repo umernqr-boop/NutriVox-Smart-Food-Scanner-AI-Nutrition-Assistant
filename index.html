@@ -7,32 +7,29 @@
 
   <style>
     :root {
-      --purple-main: #7C3AED;
-      --purple-light: #C084FC;
-      --purple-glow: rgba(124, 58, 237, 0.45);
-
-      --bg: #0d0b14;
-      --bg-elevated: #16131f;
-      --bg-soft: #1c1826;
-
-      --border: #2d2640;
-      --text: #f5f3ff;
-      --muted: #a78bfa;
-
+      --bg: #0d1117;
+      --bg-elevated: #161b22;
+      --bg-soft: #0d1117;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #2ea043;
+      --accent-soft: rgba(46, 160, 67, 0.15);
       --danger: #f85149;
       --shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
     }
 
     [data-theme="light"] {
-      --bg: #faf5ff;
+      --bg: #f5f5f5;
       --bg-elevated: #ffffff;
-      --bg-soft: #f3e8ff;
-
-      --border: #d8b4fe;
-      --text: #2e1065;
-      --muted: #7c3aed;
-
-      --shadow: 0 18px 40px rgba(124, 58, 237, 0.25);
+      --bg-soft: #f3f4f6;
+      --border: #d1d5db;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #16a34a;
+      --accent-soft: rgba(22, 163, 74, 0.12);
+      --danger: #dc2626;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
     }
 
     * {
@@ -42,8 +39,8 @@
     }
 
     body {
-      font-family: system-ui, sans-serif;
-      background: radial-gradient(circle at top, #0a0710 0, #0a0710 40%, #000 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
       color: var(--text);
       display: flex;
       justify-content: center;
@@ -66,19 +63,22 @@
       overflow: hidden;
     }
 
+    @media (max-width: 900px) {
+      body {
+        padding: 10px;
+      }
+      .app {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
     .app::before {
       content: "";
       position: absolute;
       inset: -40%;
-      background: radial-gradient(circle at 0 0, var(--purple-glow), transparent 55%);
+      background: radial-gradient(circle at 0 0, rgba(46, 160, 67, 0.12), transparent 55%);
       opacity: 0.9;
       pointer-events: none;
-    }
-
-    @media (max-width: 900px) {
-      .app {
-        grid-template-columns: 1fr;
-      }
     }
 
     .pane {
@@ -86,10 +86,17 @@
       z-index: 1;
     }
 
-    @media (min-width: 901px) {
+    .pane + .pane {
+      border-left: 1px solid var(--border);
+      padding-left: 18px;
+    }
+
+    @media (max-width: 900px) {
       .pane + .pane {
-        border-left: 1px solid var(--border);
-        padding-left: 18px;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0;
+        padding-top: 16px;
       }
     }
 
@@ -98,30 +105,31 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 14px;
+      gap: 10px;
     }
 
     .brand {
       display: flex;
-      gap: 10px;
       align-items: center;
+      gap: 10px;
     }
 
     .logo {
-      width: 38px;
-      height: 38px;
+      width: 34px;
+      height: 34px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, var(--purple-light), var(--purple-main) 60%);
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e 40%, #16a34a 70%, #052e16 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: #ecfdf5;
       font-weight: 700;
       font-size: 18px;
-      box-shadow: 0 0 12px var(--purple-glow);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.6), 0 12px 30px rgba(22, 163, 74, 0.7);
     }
 
     .brand-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
     }
 
@@ -130,31 +138,49 @@
       color: var(--muted);
     }
 
-    .btn-secondary {
+    .pill {
+      padding: 6px 11px;
       border-radius: 999px;
-      padding: 8px 12px;
-      background: var(--bg);
       border: 1px solid var(--border);
+      font-size: 11px;
       color: var(--muted);
-      cursor: pointer;
-      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-soft);
     }
 
-    .btn-secondary:hover {
-      border-color: var(--purple-light);
-      color: var(--text);
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .theme-toggle {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      font-size: 11px;
+      background: var(--bg-soft);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .section-label {
-      font-size: 11px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--muted);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .hero-title {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 600;
       margin-bottom: 4px;
     }
@@ -162,7 +188,7 @@
     .hero-sub {
       font-size: 13px;
       color: var(--muted);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       max-width: 420px;
     }
 
@@ -170,34 +196,40 @@
       background: var(--bg-soft);
       border-radius: 16px;
       border: 1px solid var(--border);
-      padding: 12px;
+      padding: 12px 12px 10px;
       margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
     }
 
     .input-label-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 8px;
       font-size: 11px;
       color: var(--muted);
-      margin-bottom: 6px;
+    }
+
+    .input-hint {
+      color: var(--accent);
     }
 
     .input-row {
       display: flex;
       gap: 8px;
-      flex-wrap: wrap;
     }
 
     .text-input {
       flex: 1;
       border-radius: 999px;
       border: 1px solid var(--border);
-      padding: 10px 14px;
+      padding: 9px 12px;
       background: var(--bg);
       color: var(--text);
-      font-size: 14px;
+      font-size: 13px;
       outline: none;
+      transition: border 150ms ease-out, box-shadow 150ms ease-out, background 150ms ease-out;
     }
 
     .text-input::placeholder {
@@ -205,52 +237,97 @@
     }
 
     .text-input:focus {
-      border-color: var(--purple-light);
-      box-shadow: 0 0 0 1px var(--purple-glow);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+      background: var(--bg-elevated);
     }
 
     .btn-primary {
       border-radius: 999px;
-      padding: 10px 16px;
-      background: linear-gradient(135deg, var(--purple-main), var(--purple-light));
-      color: white;
       border: none;
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: 0 0 12px var(--purple-glow);
+      padding: 9px 16px;
       font-size: 13px;
+      font-weight: 500;
+      background: linear-gradient(135deg, var(--accent), #16a34a);
+      color: #022c22;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 12px 30px rgba(22, 163, 74, 0.7);
+      transition: transform 150ms ease-out, box-shadow 150ms ease-out, filter 150ms ease-out;
       white-space: nowrap;
     }
 
     .btn-primary:hover {
+      transform: translateY(-1px);
       filter: brightness(1.05);
+      box-shadow: 0 16px 40px rgba(22, 163, 74, 0.85);
     }
 
-    .scan-tools {
-      display: flex;
-      gap: 6px;
-      margin-top: 8px;
-      flex-wrap: wrap;
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 24px rgba(22, 163, 74, 0.7);
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 7px 11px;
+      font-size: 12px;
+      background: var(--bg-soft);
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out;
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg);
+      border-color: var(--accent);
+      color: var(--text);
     }
 
     .scan-meta {
-      margin-top: 8px;
-      font-size: 11px;
-      color: var(--muted);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
     }
 
-    .scan-limit.exhausted {
+    .scan-pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .scan-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .scan-limit.exhausted strong {
       color: var(--danger);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 12px 0 10px;
     }
 
     .summary-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-      margin: 12px 0;
+      margin-bottom: 10px;
     }
 
     @media (max-width: 600px) {
@@ -263,30 +340,44 @@
       background: var(--bg-soft);
       border-radius: 14px;
       border: 1px solid var(--border);
-      padding: 10px;
-      font-size: 12px;
+      padding: 10px 11px;
+      position: relative;
+      overflow: hidden;
     }
 
     .summary-label {
+      font-size: 11px;
       color: var(--muted);
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .summary-value {
       font-size: 16px;
       font-weight: 600;
+      margin-bottom: 2px;
     }
 
     .summary-tag {
-      font-size: 11px;
-      color: var(--purple-light);
+      font-size: 10px;
+      color: var(--accent);
+    }
+
+    .summary-badge {
+      position: absolute;
+      top: 8px;
+      right: 9px;
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
     }
 
     .meal-log {
       background: var(--bg-soft);
       border-radius: 16px;
       border: 1px solid var(--border);
-      padding: 12px;
+      padding: 12px 13px;
       max-height: 220px;
       overflow-y: auto;
       font-size: 12px;
@@ -304,11 +395,12 @@
       align-items: flex-start;
       padding: 7px 4px;
       border-radius: 10px;
-      margin-bottom: 4px;
+      transition: background 150ms ease-out, transform 150ms ease-out;
     }
 
     .meal-item:hover {
       background: var(--bg);
+      transform: translateY(-1px);
     }
 
     .meal-main {
@@ -325,36 +417,109 @@
     .meal-kcal {
       font-size: 13px;
       font-weight: 600;
-      color: var(--purple-light);
+      color: var(--accent);
       white-space: nowrap;
       margin-left: 8px;
+    }
+
+    .right-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .badge-pro {
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid rgba(250, 204, 21, 0.7);
+      color: #facc15;
+      background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.12), var(--bg-soft));
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-pro-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #facc15;
+      box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.25);
+    }
+
+    .upgrade-card {
+      background: var(--bg-soft);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 12px 13px;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upgrade-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .upgrade-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .upgrade-list {
+      list-style: none;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .upgrade-list li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .upgrade-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(250, 204, 21, 0.9);
     }
 
     .insights-card {
       background: var(--bg-soft);
       border-radius: 16px;
       border: 1px solid var(--border);
-      padding: 12px;
-      margin-bottom: 12px;
+      padding: 12px 13px;
+      margin-bottom: 10px;
+      min-height: 120px;
       font-size: 12px;
     }
 
     .insights-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .weekly-card {
       background: var(--bg-soft);
       border-radius: 16px;
       border: 1px solid var(--border);
-      padding: 10px;
-      font-size: 12px;
+      padding: 10px 11px;
+      font-size: 11px;
     }
 
     .weekly-row {
-      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
     }
 
     .weekly-bar {
@@ -367,62 +532,103 @@
 
     .weekly-bar-fill {
       height: 100%;
-      background: var(--purple-main);
+      background: var(--accent);
       width: 40%;
+      transition: width 300ms ease-out;
     }
 
-    .upgrade-card {
-      background: var(--bg-soft);
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      padding: 12px;
-      margin-top: 12px;
-      font-size: 12px;
-    }
-
-    .upgrade-title {
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-
-    .upgrade-sub {
-      font-size: 12px;
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
       color: var(--muted);
-      margin-bottom: 8px;
+      margin-top: 8px;
+    }
+
+    .link {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--accent);
+      padding-bottom: 1px;
+      cursor: pointer;
+    }
+
+    .link:hover {
+      border-bottom-style: solid;
     }
 
     .toast {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 18px;
+      right: 18px;
+      max-width: 320px;
       background: var(--bg-elevated);
+      border-radius: 14px;
       border: 1px solid var(--border);
-      padding: 10px 14px;
-      border-radius: 12px;
+      padding: 10px 12px;
       font-size: 12px;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      box-shadow: var(--shadow);
       opacity: 0;
       transform: translateY(10px);
-      transition: 0.2s ease-out;
+      pointer-events: none;
+      transition: opacity 160ms ease-out, transform 160ms ease-out;
       z-index: 50;
     }
 
     .toast.visible {
       opacity: 1;
       transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .toast-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .toast-main {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .toast-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .toast-close {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      margin-left: 4px;
     }
 
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(15, 23, 42, 0.75);
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 40;
       opacity: 0;
       pointer-events: none;
-      transition: 0.2s ease-out;
-      z-index: 40;
+      transition: opacity 160ms ease-out;
     }
 
     .overlay.visible {
@@ -436,18 +642,79 @@
       background: var(--bg-elevated);
       border-radius: 20px;
       border: 1px solid var(--border);
-      padding: 18px;
+      padding: 16px 16px 14px;
       box-shadow: var(--shadow);
-      font-size: 13px;
+      position: relative;
+      overflow: hidden;
+      font-size: 12px;
     }
 
-    .modal h2 {
-      margin-bottom: 4px;
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
     }
 
-    .modal p {
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .modal-sub {
+      font-size: 12px;
       color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
       margin-bottom: 10px;
+    }
+
+    .modal-feature {
+      background: var(--bg-soft);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 8px 9px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .modal-feature strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-price {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .modal-price strong {
+      font-size: 16px;
+      color: #facc15;
+    }
+
+    .hidden-input {
+      display: none;
+    }
+
+    .scan-tools {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      flex-wrap: wrap;
     }
   </style>
 </head>
@@ -464,106 +731,188 @@
             <div class="brand-sub">Smart Food Scanner & AI Nutrition Assistant</div>
           </div>
         </div>
-        <button id="themeToggle" class="btn-secondary">🌙 Dark</button>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>AI‑powered analysis</span>
+          </div>
+          <button id="themeToggle" class="theme-toggle">
+            <span>🌙</span><span>Dark</span>
+          </button>
+        </div>
       </header>
 
-      <div class="section-label">Today</div>
-      <h1 class="hero-title">Scan meals, barcodes, or photos. Get instant nutrition estimates.</h1>
-      <p class="hero-sub">
-        Type a meal, paste a barcode, or upload a plate photo. NutriVox estimates calories and macros.
-      </p>
+      <section>
+        <div class="section-label">Today</div>
+        <h1 class="hero-title">Scan meals, barcodes, or photos. Get instant nutrition insights.</h1>
+        <p class="hero-sub">
+          Type a meal, paste a barcode, or upload a plate photo. NutriVox estimates calories, macros, and trends.
+        </p>
 
-      <div class="input-card">
-        <div class="input-label-row">
-          <span>Meal description</span>
-          <span style="color:var(--purple-light);">Example: “2 boiled eggs, 1 paratha, chai with milk”</span>
-        </div>
-        <div class="input-row">
-          <input id="mealInput" class="text-input" placeholder="Describe your meal..." />
-          <button id="scanBtn" class="btn-primary">⚡ Analyze</button>
+        <div class="input-card">
+          <div class="input-label-row">
+            <span>Meal description</span>
+            <span class="input-hint">Example: “2 boiled eggs, 1 paratha, chai with milk”</span>
+          </div>
+          <div class="input-row">
+            <input id="mealInput" class="text-input" placeholder="Describe your meal..." />
+            <button id="scanBtn" class="btn-primary">
+              <span>⚡</span><span>Analyze</span>
+            </button>
+          </div>
+
+          <div class="scan-tools">
+            <button id="barcodeBtn" class="btn-secondary">📦 Scan barcode (code)</button>
+            <button id="imageBtn" class="btn-secondary">📷 Analyze plate photo</button>
+            <input id="barcodeInput" class="hidden-input" type="text" />
+            <input id="imageInput" class="hidden-input" type="file" accept="image/*" />
+          </div>
+
+          <div class="scan-meta">
+            <div class="scan-pill">
+              <span class="scan-dot"></span>
+              <span id="scanStatus">Ready</span>
+            </div>
+            <div id="scanLimit" class="scan-limit">
+              Free scans left today: <strong id="scanCount">5</strong>
+            </div>
+          </div>
         </div>
 
-        <div class="scan-tools">
-          <button id="barcodeBtn" class="btn-secondary">📦 Scan barcode (manual)</button>
-          <button id="imageBtn" class="btn-secondary">📷 Upload plate photo</button>
-          <input id="imageInput" type="file" accept="image/*" style="display:none;" />
+        <div class="divider"></div>
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="summary-label">Calories today</div>
+            <div id="totalCalories" class="summary-value">0 kcal</div>
+            <div class="summary-tag">Target: 2,000 kcal</div>
+            <div class="summary-badge">Energy</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Protein</div>
+            <div id="totalProtein" class="summary-value">0 g</div>
+            <div class="summary-tag">Goal: 90–110 g</div>
+            <div class="summary-badge">Recovery</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Carbs</div>
+            <div id="totalCarbs" class="summary-value">0 g</div>
+            <div class="summary-tag">Complex > Simple</div>
+            <div class="summary-badge">Fuel</div>
+          </div>
         </div>
 
-        <div class="scan-meta">
-          <span id="scanInfo">Free scans left today: <strong id="scanCount">5</strong></span>
-          <span style="font-size:11px;">Pro unlocks unlimited scans</span>
+        <div class="meal-log" id="mealLog">
+          <div class="meal-empty">No meals logged yet. Your first scan will appear here.</div>
         </div>
-      </div>
-
-      <div class="summary-grid">
-        <div class="summary-card">
-          <div class="summary-label">Calories today</div>
-          <div id="totalCalories" class="summary-value">0 kcal</div>
-          <div class="summary-tag">Target ~ 2,000 kcal</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-label">Protein</div>
-          <div id="totalProtein" class="summary-value">0 g</div>
-          <div class="summary-tag">Goal 90–110 g</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-label">Carbs</div>
-          <div id="totalCarbs" class="summary-value">0 g</div>
-          <div class="summary-tag">Balance with fiber</div>
-        </div>
-      </div>
-
-      <h3 style="margin:8px 0;">Meal log</h3>
-      <div id="mealLog" class="meal-log">
-        <div class="meal-empty">No meals logged yet. Your first scan will appear here.</div>
-      </div>
+      </section>
     </div>
 
     <!-- RIGHT PANE -->
     <div class="pane">
-      <div class="insights-card">
-        <div class="insights-title">Live insight</div>
-        <div id="insightsBody">
-          Log a few meals and NutriVox will highlight patterns like low‑protein breakfasts or high‑carb evenings.
+      <div class="right-header">
+        <div>
+          <div class="section-label">Insights</div>
+          <div style="font-size:15px; font-weight:500;">Daily & weekly patterns</div>
         </div>
-      </div>
-
-      <div class="weekly-card">
-        <div style="font-size:13px; font-weight:500; margin-bottom:6px;">Weekly overview (demo)</div>
-        <div id="weeklyRows"></div>
+        <div id="proBadge" class="badge-pro">
+          <span class="badge-pro-dot"></span>
+          <span>Pro locked</span>
+        </div>
       </div>
 
       <div class="upgrade-card">
         <div class="upgrade-title">NutriVox Pro</div>
         <div class="upgrade-sub">
-          Remove scan limits and unlock deeper macro breakdowns and weekly trend insights.
+          Remove scan limits, unlock deeper macro breakdowns, and get weekly pattern insights tailored to your habits.
         </div>
-        <ul style="margin-left:16px; margin-bottom:8px; color:var(--muted);">
-          <li>Unlimited AI scans</li>
-          <li>Per‑meal macro quality scoring</li>
-          <li>Weekly pattern breakdowns</li>
+        <ul class="upgrade-list">
+          <li><span class="upgrade-bullet"></span><span>Unlimited AI scans</span></li>
+          <li><span class="upgrade-bullet"></span><span>Per‑meal macro quality scoring</span></li>
+          <li><span class="upgrade-bullet"></span><span>Weekly trend breakdowns</span></li>
+          <li><span class="upgrade-bullet"></span><span>Export logs for dietitians & apps</span></li>
         </ul>
-        <button id="upgradeBtn" class="btn-primary">✨ Unlock Pro</button>
+        <button id="upgradeBtn" class="btn-primary">
+          <span>Unlock Pro</span><span>✨</span>
+        </button>
+      </div>
+
+      <div class="insights-card">
+        <div class="insights-title">Live nutrition insight</div>
+        <div id="insightsBody">
+          Once you log a few meals, NutriVox will highlight patterns—like low protein breakfasts or late‑night carb spikes.
+        </div>
+      </div>
+
+      <div class="weekly-card">
+        <div style="font-size:13px; font-weight:500; margin-bottom:4px;">Weekly overview (demo)</div>
+        <div id="weeklyRows">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <div class="footer-row">
+        <span>Experimental tool. Not medical advice.</span>
+        <button id="contactBtn" class="btn-secondary">Contact support</button>
       </div>
     </div>
   </div>
 
-  <!-- PAYWALL -->
-  <div id="paywall" class="overlay">
-    <div class="modal">
-      <h2>NutriVox Pro</h2>
-      <p>You’ve hit the free scan limit. Upgrade to keep logging meals without limits and unlock deeper insights.</p>
-      <button id="paywallUpgrade" class="btn-primary" style="width:100%; margin-bottom:6px;">
-        🚀 Upgrade now
-      </button>
-      <button id="paywallClose" class="btn-secondary" style="width:100%;">
-        Maybe later
-      </button>
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-icon">✓</div>
+    <div>
+      <div id="toastMain" class="toast-main">Saved</div>
+      <div id="toastSub" class="toast-sub">Your meal has been logged.</div>
     </div>
+    <button id="toastClose" class="toast-close">×</button>
   </div>
 
-  <!-- TOAST -->
-  <div id="toast" class="toast"></div>
+  <!-- Paywall -->
+  <div id="paywall" class="overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">NutriVox Pro</div>
+          <div style="font-size:11px; color:var(--muted);">For people who actually track what they eat.</div>
+        </div>
+        <button id="paywallClose" class="toast-close">×</button>
+      </div>
+      <div class="modal-sub">
+        You’ve hit the free scan limit. Upgrade to keep logging meals without friction and unlock deeper insights.
+      </div>
+      <div class="modal-grid">
+        <div class="modal-feature">
+          <strong>Unlimited scans</strong>
+          No daily cap. Log every snack, sip, and late‑night craving.
+        </div>
+        <div class="modal-feature">
+          <strong>Macro quality</strong>
+          Per‑meal grading for protein, fiber, and sugar balance.
+        </div>
+        <div class="modal-feature">
+          <strong>Weekly patterns</strong>
+          See how weekends differ from weekdays at a glance.
+        </div>
+        <div class="modal-feature">
+          <strong>Export</strong>
+          Export your log to CSV for dietitians or apps.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-price">
+          <div>From</div>
+          <div><strong>$4.99</strong> / month</div>
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button id="paywallLater" class="btn-secondary">Maybe later</button>
+          <button id="paywallUpgrade" class="btn-primary">
+            <span>Upgrade now</span><span>🚀</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const body = document.body;
@@ -571,8 +920,13 @@
 
     const mealInput = document.getElementById("mealInput");
     const scanBtn = document.getElementById("scanBtn");
+    const scanStatus = document.getElementById("scanStatus");
+    const scanLimit = document.getElementById("scanLimit");
+    const scanCountEl = document.getElementById("scanCount");
+
     const barcodeBtn = document.getElementById("barcodeBtn");
     const imageBtn = document.getElementById("imageBtn");
+    const barcodeInput = document.getElementById("barcodeInput");
     const imageInput = document.getElementById("imageInput");
 
     const mealLog = document.getElementById("mealLog");
@@ -583,167 +937,22 @@
     const weeklyRows = document.getElementById("weeklyRows");
 
     const toast = document.getElementById("toast");
+    const toastMain = document.getElementById("toastMain");
+    const toastSub = document.getElementById("toastSub");
+    const toastClose = document.getElementById("toastClose");
 
     const paywall = document.getElementById("paywall");
     const paywallClose = document.getElementById("paywallClose");
+    const paywallLater = document.getElementById("paywallLater");
     const paywallUpgrade = document.getElementById("paywallUpgrade");
+
     const upgradeBtn = document.getElementById("upgradeBtn");
+    const proBadge = document.getElementById("proBadge");
+    const contactBtn = document.getElementById("contactBtn");
 
-    const scanInfo = document.getElementById("scanInfo");
-    const scanCountEl = document.getElementById("scanCount");
-
+    let freeScansRemaining = 5;
     let isPro = false;
-    let freeScans = 5;
     let totals = { calories: 0, protein: 0, carbs: 0 };
-
-    function showToast(msg) {
-      toast.textContent = msg;
-      toast.classList.add("visible");
-      clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => toast.classList.remove("visible"), 2500);
-    }
-
-    function updateScanUI() {
-      if (isPro) {
-        scanInfo.textContent = "Pro active: unlimited scans";
-      } else {
-        scanCountEl.textContent = freeScans;
-        scanInfo.innerHTML = 'Free scans left today: <strong id="scanCount">' + freeScans + "</strong>";
-      }
-    }
-
-    function fakeAI(text) {
-      let calories = 200 + Math.floor(Math.random() * 300);
-      let protein = 5 + Math.floor(Math.random() * 20);
-      let carbs = 10 + Math.floor(Math.random() * 40);
-
-      const lower = text.toLowerCase();
-      if (lower.includes("egg")) protein += 6;
-      if (lower.includes("chicken")) protein += 12;
-      if (lower.includes("rice")) carbs += 20;
-      if (lower.includes("paratha") || lower.includes("roti") || lower.includes("bread")) carbs += 18;
-      if (lower.includes("salad") || lower.includes("vegetable")) {
-        calories -= 40;
-        carbs += 4;
-      }
-
-      calories = Math.max(40, calories);
-      return { calories, protein, carbs };
-    }
-
-    async function analyze(text, sourceLabel) {
-      if (!text) {
-        showToast("Please enter a meal description");
-        return;
-      }
-
-      if (!isPro && freeScans <= 0) {
-        paywall.classList.add("visible");
-        return;
-      }
-
-      scanBtn.disabled = true;
-      scanBtn.textContent = "⏳ Analyzing...";
-
-      // Placeholder for real API call
-      const result = await new Promise((resolve) =>
-        setTimeout(() => resolve(fakeAI(text)), 600)
-      );
-
-      totals.calories += result.calories;
-      totals.protein += result.protein;
-      totals.carbs += result.carbs;
-
-      totalCaloriesEl.textContent = totals.calories + " kcal";
-      totalProteinEl.textContent = totals.protein + " g";
-      totalCarbsEl.textContent = totals.carbs + " g";
-
-      const empty = mealLog.querySelector(".meal-empty");
-      if (empty) empty.remove();
-
-      const row = document.createElement("div");
-      row.className = "meal-item";
-      row.innerHTML = `
-        <div>
-          <div class="meal-main">${text} ${sourceLabel ? `<span style="font-size:10px; color:var(--muted);">(${sourceLabel})</span>` : ""}</div>
-          <div class="meal-meta">${result.protein} g protein • ${result.carbs} g carbs</div>
-        </div>
-        <div class="meal-kcal">${result.calories} kcal</div>
-      `;
-      mealLog.prepend(row);
-
-      let insight = "You’re just getting started. Log a few more meals to see patterns.";
-      if (totals.protein > 60 && totals.carbs < 150) {
-        insight = "Nice protein balance so far. Carbs are moderate—this looks like a relatively high‑protein day.";
-      } else if (totals.carbs > 220) {
-        insight = "Carbs are trending high. Consider adding more protein or fiber‑dense foods.";
-      } else if (totals.calories > 2200) {
-        insight = "You’re above a typical 2,000 kcal target. If that’s intentional, you’re on track—otherwise, watch late‑night snacks.";
-      }
-      insightsBody.textContent = insight;
-
-      if (!isPro) {
-        freeScans = Math.max(0, freeScans - 1);
-        updateScanUI();
-      }
-
-      showToast("Meal logged");
-      scanBtn.disabled = false;
-      scanBtn.textContent = "⚡ Analyze";
-    }
-
-    scanBtn.addEventListener("click", () => {
-      const text = mealInput.value.trim();
-      analyze(text, "typed");
-      mealInput.value = "";
-    });
-
-    mealInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        const text = mealInput.value.trim();
-        analyze(text, "typed");
-        mealInput.value = "";
-      }
-    });
-
-    barcodeBtn.addEventListener("click", () => {
-      const code = prompt("Enter or paste barcode number:");
-      if (!code) return;
-      analyze("Barcode: " + code, "barcode");
-    });
-
-    imageBtn.addEventListener("click", () => imageInput.click());
-
-    imageInput.addEventListener("change", () => {
-      if (!imageInput.files || !imageInput.files[0]) return;
-      const file = imageInput.files[0];
-      analyze("Plate photo: " + file.name, "image");
-      imageInput.value = "";
-    });
-
-    themeToggle.addEventListener("click", () => {
-      const current = body.getAttribute("data-theme") || "dark";
-      const next = current === "dark" ? "light" : "dark";
-      body.setAttribute("data-theme", next);
-      themeToggle.textContent = next === "dark" ? "🌙 Dark" : "☀️ Light";
-    });
-
-    upgradeBtn.addEventListener("click", () => {
-      if (isPro) {
-        showToast("You already have Pro");
-      } else {
-        paywall.classList.add("visible");
-      }
-    });
-
-    paywallClose.addEventListener("click", () => paywall.classList.remove("visible"));
-    paywallUpgrade.addEventListener("click", () => {
-      isPro = true;
-      paywall.classList.remove("visible");
-      showToast("Pro unlocked – unlimited scans");
-      updateScanUI();
-    });
 
     const weeklyDemo = [
       { day: "Mon", kcal: 1800 },
@@ -761,18 +970,255 @@
       weeklyDemo.forEach((d) => {
         const row = document.createElement("div");
         row.className = "weekly-row";
-        row.innerHTML = `
-          <div style="display:flex; justify-content:space-between;">
-            <span>${d.day}</span>
-            <span>${d.kcal} kcal</span>
-          </div>
-          <div class="weekly-bar">
-            <div class="weekly-bar-fill" style="width:${Math.round((d.kcal / max) * 100)}%;"></div>
-          </div>
-        `;
+        const left = document.createElement("div");
+        left.textContent = d.day;
+        const right = document.createElement("div");
+        right.textContent = d.kcal + " kcal";
+        row.appendChild(left);
+        row.appendChild(right);
+
+        const bar = document.createElement("div");
+        bar.className = "weekly-bar";
+        const fill = document.createElement("div");
+        fill.className = "weekly-bar-fill";
+        fill.style.width = Math.round((d.kcal / max) * 100) + "%";
+        bar.appendChild(fill);
+
         weeklyRows.appendChild(row);
+        weeklyRows.appendChild(bar);
       });
     }
+
+    function showToast(main, sub) {
+      toastMain.textContent = main;
+      toastSub.textContent = sub || "";
+      toast.classList.add("visible");
+      clearTimeout(showToast._timeout);
+      showToast._timeout = setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 3200);
+    }
+
+    toastClose.addEventListener("click", () => {
+      toast.classList.remove("visible");
+    });
+
+    function updateScanUI() {
+      scanCountEl.textContent = isPro ? "∞" : freeScansRemaining;
+      if (isPro) {
+        scanLimit.innerHTML = 'Pro active: <strong>Unlimited scans</strong>';
+        scanLimit.classList.remove("exhausted");
+      } else if (freeScansRemaining <= 0) {
+        scanLimit.innerHTML = 'Free scans left today: <strong>0</strong>';
+        scanLimit.classList.add("exhausted");
+      } else {
+        scanLimit.innerHTML =
+          'Free scans left today: <strong id="scanCount">' + freeScansRemaining + "</strong>";
+        scanLimit.classList.remove("exhausted");
+      }
+    }
+
+    function fakeAI(text) {
+      let calories = 200 + Math.floor(Math.random() * 300);
+      let protein = 5 + Math.floor(Math.random() * 20);
+      let carbs = 10 + Math.floor(Math.random() * 40);
+
+      const lower = text.toLowerCase();
+      if (lower.includes("egg")) protein += 6;
+      if (lower.includes("chicken")) protein += 12;
+      if (lower.includes("rice")) carbs += 20;
+      if (lower.includes("paratha") || lower.includes("roti") || lower.includes("bread")) carbs += 18;
+      if (lower.includes("chai") || lower.includes("tea") || lower.includes("sugar")) carbs += 8;
+      if (lower.includes("salad") || lower.includes("vegetable")) {
+        calories -= 40;
+        carbs += 4;
+      }
+
+      calories = Math.max(40, calories);
+      protein = Math.max(0, protein);
+      carbs = Math.max(0, carbs);
+
+      return { calories, protein, carbs };
+    }
+
+    async function callAIAPI(payload) {
+      // Placeholder for real AI API integration.
+      // Replace URL and body with your backend / third‑party endpoint.
+      // Example:
+      // const res = await fetch("https://your-api.com/analyze", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(payload),
+      // });
+      // const data = await res.json();
+      // return data;
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(fakeAI(payload.text || "meal")), 600);
+      });
+    }
+
+    function updateTotals(delta) {
+      totals.calories += delta.calories;
+      totals.protein += delta.protein;
+      totals.carbs += delta.carbs;
+
+      totalCaloriesEl.textContent = totals.calories + " kcal";
+      totalProteinEl.textContent = totals.protein + " g";
+      totalCarbsEl.textContent = totals.carbs + " g";
+
+      let insight = "You’re just getting started. Log a few more meals to see meaningful patterns.";
+      if (totals.protein > 60 && totals.carbs < 150) {
+        insight = "Nice protein balance so far. Carbs are moderate—this looks like a relatively high‑protein day.";
+      } else if (totals.carbs > 220) {
+        insight =
+          "Carbs are trending high. Consider adding more protein or fiber‑dense foods to balance energy swings.";
+      } else if (totals.calories > 2200) {
+        insight =
+          "You’re above a typical 2,000 kcal target. If that’s intentional (bulking, active day), you’re on track—otherwise, watch late‑night snacks.";
+      }
+      insightsBody.textContent = insight;
+    }
+
+    function appendMeal(text, analysis, sourceLabel) {
+      const empty = mealLog.querySelector(".meal-empty");
+      if (empty) empty.remove();
+
+      const row = document.createElement("div");
+      row.className = "meal-item";
+
+      const left = document.createElement("div");
+      left.innerHTML =
+        '<div class="meal-main">' +
+        text +
+        (sourceLabel ? ' <span style="font-size:10px; color:var(--muted);">(' + sourceLabel + ")</span>" : "") +
+        '</div><div class="meal-meta">' +
+        analysis.protein +
+        " g protein • " +
+        analysis.carbs +
+        " g carbs</div>";
+
+      const right = document.createElement("div");
+      right.className = "meal-kcal";
+      right.textContent = analysis.calories + " kcal";
+
+      row.appendChild(left);
+      row.appendChild(right);
+      mealLog.prepend(row);
+    }
+
+    async function handleAnalyze(text, sourceLabel) {
+      if (!text) {
+        showToast("Nothing to analyze", "Describe a meal, barcode, or choose a photo.");
+        return;
+      }
+
+      if (!isPro && freeScansRemaining <= 0) {
+        showPaywall();
+        return;
+      }
+
+      scanBtn.disabled = true;
+      scanBtn.innerHTML = "<span>⏳</span><span>Analyzing...</span>";
+      scanStatus.textContent = "Analyzing…";
+
+      try {
+        const analysis = await callAIAPI({ text, source: sourceLabel || "text" });
+        appendMeal(text, analysis, sourceLabel);
+        updateTotals(analysis);
+
+        if (!isPro) {
+          freeScansRemaining = Math.max(0, freeScansRemaining - 1);
+        }
+        updateScanUI();
+
+        showToast("Meal logged", analysis.calories + " kcal added to your day.");
+      } catch (e) {
+        showToast("Analysis failed", "Check your connection or try again.");
+      } finally {
+        scanStatus.textContent = "Ready";
+        scanBtn.disabled = false;
+        scanBtn.innerHTML = "<span>⚡</span><span>Analyze</span>";
+      }
+    }
+
+    scanBtn.addEventListener("click", () => {
+      const text = mealInput.value.trim();
+      handleAnalyze(text, "typed");
+      mealInput.value = "";
+    });
+
+    mealInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const text = mealInput.value.trim();
+        handleAnalyze(text, "typed");
+        mealInput.value = "";
+      }
+    });
+
+    barcodeBtn.addEventListener("click", () => {
+      const code = prompt("Enter or paste barcode number:");
+      if (!code) return;
+      // In a real app, send barcode to backend / food database.
+      handleAnalyze("Barcode: " + code, "barcode");
+    });
+
+    imageBtn.addEventListener("click", () => {
+      imageInput.click();
+    });
+
+    imageInput.addEventListener("change", () => {
+      if (!imageInput.files || !imageInput.files[0]) return;
+      const file = imageInput.files[0];
+      // In a real app, upload file to backend / vision API.
+      handleAnalyze("Plate photo: " + file.name, "image");
+      imageInput.value = "";
+    });
+
+    function showPaywall() {
+      paywall.classList.add("visible");
+    }
+
+    function hidePaywall() {
+      paywall.classList.remove("visible");
+    }
+
+    paywallClose.addEventListener("click", hidePaywall);
+    paywallLater.addEventListener("click", hidePaywall);
+
+    paywallUpgrade.addEventListener("click", () => {
+      isPro = true;
+      hidePaywall();
+      proBadge.innerHTML = '<span class="badge-pro-dot"></span><span>Pro active</span>';
+      showToast("Upgraded to Pro", "Scan limits removed. Enjoy unlimited analysis.");
+      updateScanUI();
+    });
+
+    upgradeBtn.addEventListener("click", () => {
+      if (isPro) {
+        showToast("Already Pro", "You already have unlimited scans.");
+      } else {
+        showPaywall();
+      }
+    });
+
+    contactBtn.addEventListener("click", () => {
+      navigator.clipboard
+        .writeText("support@nutrivox.app")
+        .then(() => {
+          showToast("Email copied", "support@nutrivox.app copied to clipboard.");
+        })
+        .catch(() => {
+          showToast("Contact", "support@nutrivox.app");
+        });
+    });
+
+    themeToggle.addEventListener("click", () => {
+      const current = body.getAttribute("data-theme") || "dark";
+      const next = current === "dark" ? "light" : "dark";
+      body.setAttribute("data-theme", next);
+      themeToggle.innerHTML = next === "dark" ? "<span>🌙</span><span>Dark</span>" : "<span>☀️</span><span>Light</span>";
+    });
 
     renderWeekly();
     updateScanUI();
