@@ -81,12 +81,29 @@
       }
     }
 
-    /* Branding */
+    .pane {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 901px) {
+      .pane + .pane {
+        border-left: 1px solid var(--border);
+        padding-left: 18px;
+      }
+    }
+
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 14px;
+    }
+
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
     }
 
     .logo {
@@ -113,13 +130,63 @@
       color: var(--muted);
     }
 
-    /* Inputs */
+    .btn-secondary {
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--purple-light);
+      color: var(--text);
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .hero-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      max-width: 420px;
+    }
+
     .input-card {
       background: var(--bg-soft);
       border-radius: 16px;
       border: 1px solid var(--border);
       padding: 12px;
       margin-bottom: 12px;
+    }
+
+    .input-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .text-input {
@@ -130,6 +197,16 @@
       background: var(--bg);
       color: var(--text);
       font-size: 14px;
+      outline: none;
+    }
+
+    .text-input::placeholder {
+      color: var(--muted);
+    }
+
+    .text-input:focus {
+      border-color: var(--purple-light);
+      box-shadow: 0 0 0 1px var(--purple-glow);
     }
 
     .btn-primary {
@@ -141,18 +218,70 @@
       cursor: pointer;
       font-weight: 600;
       box-shadow: 0 0 12px var(--purple-glow);
+      font-size: 13px;
+      white-space: nowrap;
     }
 
-    .btn-secondary {
-      border-radius: 999px;
-      padding: 8px 12px;
-      background: var(--bg);
-      border: 1px solid var(--border);
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .scan-tools {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .scan-meta {
+      margin-top: 8px;
+      font-size: 11px;
       color: var(--muted);
-      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    /* Meal log */
+    .scan-limit.exhausted {
+      color: var(--danger);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    @media (max-width: 600px) {
+      .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .summary-card {
+      background: var(--bg-soft);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .summary-label {
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .summary-value {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .summary-tag {
+      font-size: 11px;
+      color: var(--purple-light);
+    }
+
     .meal-log {
       background: var(--bg-soft);
       border-radius: 16px;
@@ -160,20 +289,129 @@
       padding: 12px;
       max-height: 220px;
       overflow-y: auto;
+      font-size: 12px;
+    }
+
+    .meal-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 16px 4px;
     }
 
     .meal-item {
       display: flex;
       justify-content: space-between;
-      padding: 8px 4px;
+      align-items: flex-start;
+      padding: 7px 4px;
       border-radius: 10px;
+      margin-bottom: 4px;
     }
 
     .meal-item:hover {
       background: var(--bg);
     }
 
-    /* Paywall */
+    .meal-main {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .meal-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .meal-kcal {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--purple-light);
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+
+    .insights-card {
+      background: var(--bg-soft);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 12px;
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    .insights-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .weekly-card {
+      background: var(--bg-soft);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .weekly-row {
+      margin-bottom: 6px;
+    }
+
+    .weekly-bar {
+      height: 4px;
+      border-radius: 999px;
+      background: var(--bg);
+      overflow: hidden;
+      margin-top: 2px;
+    }
+
+    .weekly-bar-fill {
+      height: 100%;
+      background: var(--purple-main);
+      width: 40%;
+    }
+
+    .upgrade-card {
+      background: var(--bg-soft);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 12px;
+    }
+
+    .upgrade-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .upgrade-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: 0.2s ease-out;
+      z-index: 50;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .overlay {
       position: fixed;
       inset: 0;
@@ -184,6 +422,7 @@
       opacity: 0;
       pointer-events: none;
       transition: 0.2s ease-out;
+      z-index: 40;
     }
 
     .overlay.visible {
@@ -199,82 +438,113 @@
       border: 1px solid var(--border);
       padding: 18px;
       box-shadow: var(--shadow);
+      font-size: 13px;
     }
 
-    /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      padding: 12px 16px;
-      border-radius: 12px;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: 0.2s ease-out;
+    .modal h2 {
+      margin-bottom: 4px;
     }
 
-    .toast.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .modal p {
+      color: var(--muted);
+      margin-bottom: 10px;
     }
   </style>
 </head>
+
 <body data-theme="dark">
   <div class="app">
-
-    <!-- LEFT SIDE -->
-    <div>
+    <!-- LEFT PANE -->
+    <div class="pane">
       <header class="header">
-        <div style="display:flex; gap:10px; align-items:center;">
+        <div class="brand">
           <div class="logo">V</div>
           <div>
             <div class="brand-title">NutriVox</div>
-            <div class="brand-sub">AI Nutrition Assistant</div>
+            <div class="brand-sub">Smart Food Scanner & AI Nutrition Assistant</div>
           </div>
         </div>
-
         <button id="themeToggle" class="btn-secondary">🌙 Dark</button>
       </header>
 
-      <div class="input-card">
-        <input id="mealInput" class="text-input" placeholder="Describe your meal..." />
-        <button id="scanBtn" class="btn-primary" style="margin-top:10px;">⚡ Analyze</button>
+      <div class="section-label">Today</div>
+      <h1 class="hero-title">Scan meals, barcodes, or photos. Get instant nutrition estimates.</h1>
+      <p class="hero-sub">
+        Type a meal, paste a barcode, or upload a plate photo. NutriVox estimates calories and macros.
+      </p>
 
-        <div style="margin-top:10px; display:flex; gap:6px;">
-          <button id="barcodeBtn" class="btn-secondary">📦 Scan Barcode</button>
-          <button id="imageBtn" class="btn-secondary">📷 Upload Photo</button>
+      <div class="input-card">
+        <div class="input-label-row">
+          <span>Meal description</span>
+          <span style="color:var(--purple-light);">Example: “2 boiled eggs, 1 paratha, chai with milk”</span>
+        </div>
+        <div class="input-row">
+          <input id="mealInput" class="text-input" placeholder="Describe your meal..." />
+          <button id="scanBtn" class="btn-primary">⚡ Analyze</button>
         </div>
 
-        <input id="imageInput" type="file" accept="image/*" style="display:none;" />
+        <div class="scan-tools">
+          <button id="barcodeBtn" class="btn-secondary">📦 Scan barcode (manual)</button>
+          <button id="imageBtn" class="btn-secondary">📷 Upload plate photo</button>
+          <input id="imageInput" type="file" accept="image/*" style="display:none;" />
+        </div>
+
+        <div class="scan-meta">
+          <span id="scanInfo">Free scans left today: <strong id="scanCount">5</strong></span>
+          <span style="font-size:11px;">Pro unlocks unlimited scans</span>
+        </div>
       </div>
 
-      <h3 style="margin:10px 0;">Daily Summary</h3>
-      <div>
-        <p>Calories: <strong id="totalCalories">0</strong></p>
-        <p>Protein: <strong id="totalProtein">0 g</strong></p>
-        <p>Carbs: <strong id="totalCarbs">0 g</strong></p>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="summary-label">Calories today</div>
+          <div id="totalCalories" class="summary-value">0 kcal</div>
+          <div class="summary-tag">Target ~ 2,000 kcal</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Protein</div>
+          <div id="totalProtein" class="summary-value">0 g</div>
+          <div class="summary-tag">Goal 90–110 g</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Carbs</div>
+          <div id="totalCarbs" class="summary-value">0 g</div>
+          <div class="summary-tag">Balance with fiber</div>
+        </div>
       </div>
 
-      <h3 style="margin:14px 0;">Meal Log</h3>
+      <h3 style="margin:8px 0;">Meal log</h3>
       <div id="mealLog" class="meal-log">
-        <div style="color:var(--muted); text-align:center;">No meals logged yet.</div>
+        <div class="meal-empty">No meals logged yet. Your first scan will appear here.</div>
       </div>
     </div>
 
-    <!-- RIGHT SIDE -->
-    <div>
-      <h3>Insights</h3>
-      <p id="insightsBody" style="color:var(--muted); margin-bottom:12px;">
-        Log meals to see insights.
-      </p>
+    <!-- RIGHT PANE -->
+    <div class="pane">
+      <div class="insights-card">
+        <div class="insights-title">Live insight</div>
+        <div id="insightsBody">
+          Log a few meals and NutriVox will highlight patterns like low‑protein breakfasts or high‑carb evenings.
+        </div>
+      </div>
 
-      <h3>Weekly Overview</h3>
-      <div id="weeklyRows" style="margin-top:10px;"></div>
+      <div class="weekly-card">
+        <div style="font-size:13px; font-weight:500; margin-bottom:6px;">Weekly overview (demo)</div>
+        <div id="weeklyRows"></div>
+      </div>
 
-      <h3 style="margin-top:20px;">NutriVox Pro</h3>
-      <button id="upgradeBtn" class="btn-primary">✨ Unlock Pro</button>
+      <div class="upgrade-card">
+        <div class="upgrade-title">NutriVox Pro</div>
+        <div class="upgrade-sub">
+          Remove scan limits and unlock deeper macro breakdowns and weekly trend insights.
+        </div>
+        <ul style="margin-left:16px; margin-bottom:8px; color:var(--muted);">
+          <li>Unlimited AI scans</li>
+          <li>Per‑meal macro quality scoring</li>
+          <li>Weekly pattern breakdowns</li>
+        </ul>
+        <button id="upgradeBtn" class="btn-primary">✨ Unlock Pro</button>
+      </div>
     </div>
   </div>
 
@@ -282,166 +552,230 @@
   <div id="paywall" class="overlay">
     <div class="modal">
       <h2>NutriVox Pro</h2>
-      <p style="color:var(--muted); margin:6px 0;">
-        Unlimited scans, deeper insights, weekly trends, and more.
-      </p>
-
-      <button id="paywallUpgrade" class="btn-primary" style="width:100%; margin-top:10px;">
-        🚀 Upgrade Now
+      <p>You’ve hit the free scan limit. Upgrade to keep logging meals without limits and unlock deeper insights.</p>
+      <button id="paywallUpgrade" class="btn-primary" style="width:100%; margin-bottom:6px;">
+        🚀 Upgrade now
       </button>
-      <button id="paywallClose" class="btn-secondary" style="width:100%; margin-top:6px;">
-        Maybe Later
+      <button id="paywallClose" class="btn-secondary" style="width:100%;">
+        Maybe later
       </button>
     </div>
   </div>
 
   <!-- TOAST -->
   <div id="toast" class="toast"></div>
-<script>
-  const body = document.body;
-  const themeToggle = document.getElementById("themeToggle");
 
-  const mealInput = document.getElementById("mealInput");
-  const scanBtn = document.getElementById("scanBtn");
+  <script>
+    const body = document.body;
+    const themeToggle = document.getElementById("themeToggle");
 
-  const barcodeBtn = document.getElementById("barcodeBtn");
-  const imageBtn = document.getElementById("imageBtn");
-  const imageInput = document.getElementById("imageInput");
+    const mealInput = document.getElementById("mealInput");
+    const scanBtn = document.getElementById("scanBtn");
+    const barcodeBtn = document.getElementById("barcodeBtn");
+    const imageBtn = document.getElementById("imageBtn");
+    const imageInput = document.getElementById("imageInput");
 
-  const mealLog = document.getElementById("mealLog");
-  const totalCaloriesEl = document.getElementById("totalCalories");
-  const totalProteinEl = document.getElementById("totalProtein");
-  const totalCarbsEl = document.getElementById("totalCarbs");
-  const insightsBody = document.getElementById("insightsBody");
-  const weeklyRows = document.getElementById("weeklyRows");
+    const mealLog = document.getElementById("mealLog");
+    const totalCaloriesEl = document.getElementById("totalCalories");
+    const totalProteinEl = document.getElementById("totalProtein");
+    const totalCarbsEl = document.getElementById("totalCarbs");
+    const insightsBody = document.getElementById("insightsBody");
+    const weeklyRows = document.getElementById("weeklyRows");
 
-  const toast = document.getElementById("toast");
+    const toast = document.getElementById("toast");
 
-  const paywall = document.getElementById("paywall");
-  const paywallClose = document.getElementById("paywallClose");
-  const paywallUpgrade = document.getElementById("paywallUpgrade");
-  const upgradeBtn = document.getElementById("upgradeBtn");
+    const paywall = document.getElementById("paywall");
+    const paywallClose = document.getElementById("paywallClose");
+    const paywallUpgrade = document.getElementById("paywallUpgrade");
+    const upgradeBtn = document.getElementById("upgradeBtn");
 
-  let isPro = false;
-  let freeScans = 5;
+    const scanInfo = document.getElementById("scanInfo");
+    const scanCountEl = document.getElementById("scanCount");
 
-  let totals = { calories: 0, protein: 0, carbs: 0 };
+    let isPro = false;
+    let freeScans = 5;
+    let totals = { calories: 0, protein: 0, carbs: 0 };
 
-  function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add("visible");
-    setTimeout(() => toast.classList.remove("visible"), 2500);
-  }
-
-  function fakeAI(text) {
-    let calories = 200 + Math.floor(Math.random() * 300);
-    let protein = 5 + Math.floor(Math.random() * 20);
-    let carbs = 10 + Math.floor(Math.random() * 40);
-
-    if (text.toLowerCase().includes("egg")) protein += 6;
-    if (text.toLowerCase().includes("rice")) carbs += 20;
-
-    return { calories, protein, carbs };
-  }
-
-  async function analyze(text, source) {
-    if (!text) return showToast("Enter a meal first");
-
-    if (!isPro && freeScans <= 0) {
-      paywall.classList.add("visible");
-      return;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("visible");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove("visible"), 2500);
     }
 
-    scanBtn.textContent = "⏳ Analyzing...";
-    scanBtn.disabled = true;
-
-    const result = await new Promise((r) => setTimeout(() => r(fakeAI(text)), 600));
-
-    totals.calories += result.calories;
-    totals.protein += result.protein;
-    totals.carbs += result.carbs;
-
-    totalCaloriesEl.textContent = totals.calories;
-    totalProteinEl.textContent = totals.protein + " g";
-    totalCarbsEl.textContent = totals.carbs + " g";
-
-    const item = document.createElement("div");
-    item.className = "meal-item";
-    item.innerHTML = `
-      <div>
-        <strong>${text}</strong>
-        <div style="color:var(--muted); font-size:12px;">${result.protein}g protein • ${result.carbs}g carbs</div>
-      </div>
-      <div style="color:var(--purple-light); font-weight:600;">${result.calories} kcal</div>
-    `;
-    mealLog.prepend(item);
-
-    insightsBody.textContent = "Your day is shaping up. Keep logging meals.";
-
-    if (!isPro) freeScans--;
-
-    showToast("Meal logged");
-
-    scanBtn.textContent = "⚡ Analyze";
-    scanBtn.disabled = false;
-  }
-
-  scanBtn.addEventListener("click", () => analyze(mealInput.value.trim(), "text"));
-
-  barcodeBtn.addEventListener("click", () => {
-    const code = prompt("Enter barcode:");
-    if (code) analyze("Barcode: " + code, "barcode");
-  });
-
-  imageBtn.addEventListener("click", () => imageInput.click());
-
-  imageInput.addEventListener("change", () => {
-    if (imageInput.files.length > 0) {
-      analyze("Photo: " + imageInput.files[0].name, "image");
+    function updateScanUI() {
+      if (isPro) {
+        scanInfo.textContent = "Pro active: unlimited scans";
+      } else {
+        scanCountEl.textContent = freeScans;
+        scanInfo.innerHTML = 'Free scans left today: <strong id="scanCount">' + freeScans + "</strong>";
+      }
     }
-  });
 
-  themeToggle.addEventListener("click", () => {
-    const current = body.getAttribute("data-theme");
-    const next = current === "dark" ? "light" : "dark";
-    body.setAttribute("data-theme", next);
-    themeToggle.textContent = next === "dark" ? "🌙 Dark" : "☀️ Light";
-  });
+    function fakeAI(text) {
+      let calories = 200 + Math.floor(Math.random() * 300);
+      let protein = 5 + Math.floor(Math.random() * 20);
+      let carbs = 10 + Math.floor(Math.random() * 40);
 
-  upgradeBtn.addEventListener("click", () => paywall.classList.add("visible"));
-  paywallClose.addEventListener("click", () => paywall.classList.remove("visible"));
-  paywallUpgrade.addEventListener("click", () => {
-    isPro = true;
-    paywall.classList.remove("visible");
-    showToast("Pro unlocked!");
-  });
+      const lower = text.toLowerCase();
+      if (lower.includes("egg")) protein += 6;
+      if (lower.includes("chicken")) protein += 12;
+      if (lower.includes("rice")) carbs += 20;
+      if (lower.includes("paratha") || lower.includes("roti") || lower.includes("bread")) carbs += 18;
+      if (lower.includes("salad") || lower.includes("vegetable")) {
+        calories -= 40;
+        carbs += 4;
+      }
 
-  const weekly = [
-    { day: "Mon", kcal: 1800 },
-    { day: "Tue", kcal: 2100 },
-    { day: "Wed", kcal: 1950 },
-    { day: "Thu", kcal: 2300 },
-    { day: "Fri", kcal: 2500 },
-    { day: "Sat", kcal: 2700 },
-    { day: "Sun", kcal: 1900 },
-  ];
+      calories = Math.max(40, calories);
+      return { calories, protein, carbs };
+    }
 
-  const max = Math.max(...weekly.map((d) => d.kcal));
+    async function analyze(text, sourceLabel) {
+      if (!text) {
+        showToast("Please enter a meal description");
+        return;
+      }
 
-  weekly.forEach((d) => {
-    const row = document.createElement("div");
-    row.style.marginBottom = "6px";
-    row.innerHTML = `
-      <div style="display:flex; justify-content:space-between;">
-        <span>${d.day}</span>
-        <span>${d.kcal} kcal</span>
-      </div>
-      <div style="height:4px; background:var(--bg); border-radius:999px; overflow:hidden;">
-        <div style="height:100%; width:${(d.kcal / max) * 100}%; background:var(--purple-main);"></div>
-      </div>
-    `;
-    weeklyRows.appendChild(row);
-  });
-</script>
+      if (!isPro && freeScans <= 0) {
+        paywall.classList.add("visible");
+        return;
+      }
+
+      scanBtn.disabled = true;
+      scanBtn.textContent = "⏳ Analyzing...";
+
+      // Placeholder for real API call
+      const result = await new Promise((resolve) =>
+        setTimeout(() => resolve(fakeAI(text)), 600)
+      );
+
+      totals.calories += result.calories;
+      totals.protein += result.protein;
+      totals.carbs += result.carbs;
+
+      totalCaloriesEl.textContent = totals.calories + " kcal";
+      totalProteinEl.textContent = totals.protein + " g";
+      totalCarbsEl.textContent = totals.carbs + " g";
+
+      const empty = mealLog.querySelector(".meal-empty");
+      if (empty) empty.remove();
+
+      const row = document.createElement("div");
+      row.className = "meal-item";
+      row.innerHTML = `
+        <div>
+          <div class="meal-main">${text} ${sourceLabel ? `<span style="font-size:10px; color:var(--muted);">(${sourceLabel})</span>` : ""}</div>
+          <div class="meal-meta">${result.protein} g protein • ${result.carbs} g carbs</div>
+        </div>
+        <div class="meal-kcal">${result.calories} kcal</div>
+      `;
+      mealLog.prepend(row);
+
+      let insight = "You’re just getting started. Log a few more meals to see patterns.";
+      if (totals.protein > 60 && totals.carbs < 150) {
+        insight = "Nice protein balance so far. Carbs are moderate—this looks like a relatively high‑protein day.";
+      } else if (totals.carbs > 220) {
+        insight = "Carbs are trending high. Consider adding more protein or fiber‑dense foods.";
+      } else if (totals.calories > 2200) {
+        insight = "You’re above a typical 2,000 kcal target. If that’s intentional, you’re on track—otherwise, watch late‑night snacks.";
+      }
+      insightsBody.textContent = insight;
+
+      if (!isPro) {
+        freeScans = Math.max(0, freeScans - 1);
+        updateScanUI();
+      }
+
+      showToast("Meal logged");
+      scanBtn.disabled = false;
+      scanBtn.textContent = "⚡ Analyze";
+    }
+
+    scanBtn.addEventListener("click", () => {
+      const text = mealInput.value.trim();
+      analyze(text, "typed");
+      mealInput.value = "";
+    });
+
+    mealInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const text = mealInput.value.trim();
+        analyze(text, "typed");
+        mealInput.value = "";
+      }
+    });
+
+    barcodeBtn.addEventListener("click", () => {
+      const code = prompt("Enter or paste barcode number:");
+      if (!code) return;
+      analyze("Barcode: " + code, "barcode");
+    });
+
+    imageBtn.addEventListener("click", () => imageInput.click());
+
+    imageInput.addEventListener("change", () => {
+      if (!imageInput.files || !imageInput.files[0]) return;
+      const file = imageInput.files[0];
+      analyze("Plate photo: " + file.name, "image");
+      imageInput.value = "";
+    });
+
+    themeToggle.addEventListener("click", () => {
+      const current = body.getAttribute("data-theme") || "dark";
+      const next = current === "dark" ? "light" : "dark";
+      body.setAttribute("data-theme", next);
+      themeToggle.textContent = next === "dark" ? "🌙 Dark" : "☀️ Light";
+    });
+
+    upgradeBtn.addEventListener("click", () => {
+      if (isPro) {
+        showToast("You already have Pro");
+      } else {
+        paywall.classList.add("visible");
+      }
+    });
+
+    paywallClose.addEventListener("click", () => paywall.classList.remove("visible"));
+    paywallUpgrade.addEventListener("click", () => {
+      isPro = true;
+      paywall.classList.remove("visible");
+      showToast("Pro unlocked – unlimited scans");
+      updateScanUI();
+    });
+
+    const weeklyDemo = [
+      { day: "Mon", kcal: 1800 },
+      { day: "Tue", kcal: 2100 },
+      { day: "Wed", kcal: 1950 },
+      { day: "Thu", kcal: 2300 },
+      { day: "Fri", kcal: 2500 },
+      { day: "Sat", kcal: 2700 },
+      { day: "Sun", kcal: 1900 },
+    ];
+
+    function renderWeekly() {
+      const max = Math.max(...weeklyDemo.map((d) => d.kcal));
+      weeklyRows.innerHTML = "";
+      weeklyDemo.forEach((d) => {
+        const row = document.createElement("div");
+        row.className = "weekly-row";
+        row.innerHTML = `
+          <div style="display:flex; justify-content:space-between;">
+            <span>${d.day}</span>
+            <span>${d.kcal} kcal</span>
+          </div>
+          <div class="weekly-bar">
+            <div class="weekly-bar-fill" style="width:${Math.round((d.kcal / max) * 100)}%;"></div>
+          </div>
+        `;
+        weeklyRows.appendChild(row);
+      });
+    }
+
+    renderWeekly();
+    updateScanUI();
+  </script>
 </body>
 </html>
